@@ -1,0 +1,2 @@
+## BGLib
+BGLib (BitzGames lib) is a library that allows you to make minigames with very minimal effort. This is done by creating and using "building blocks", which allow certain code to be run on events, etc.

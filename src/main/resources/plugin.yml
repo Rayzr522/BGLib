@@ -1,0 +1,9 @@
+name: BGLib
+main: com.rayzr522.bglib.BGLib
+version: 0.1
+description: A building-blocks style minigame library
+author: Rayzr522
+depend: [BitzAPI]
+commands:
+  bglib:
+    description: Main BGLib command
