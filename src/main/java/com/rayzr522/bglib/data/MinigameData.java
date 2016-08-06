@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 import com.rayzr522.bglib.arena.Arena;
 import com.rayzr522.bglib.plugin.MinigamePlugin;
-import com.rayzr522.bitzapi.utils.MapUtils;
+import com.rayzr522.bitzapi.utils.data.MapUtils;
 
 public class MinigameData {
 

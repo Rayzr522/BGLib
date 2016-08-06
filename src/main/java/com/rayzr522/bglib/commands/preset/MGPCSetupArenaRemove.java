@@ -10,10 +10,10 @@ import com.rayzr522.bglib.messaging.MGMessages;
 import com.rayzr522.bglib.plugin.MinigamePlugin;
 import com.rayzr522.bglib.utils.MinigameUtils;
 import com.rayzr522.bitzapi.BitzPlugin;
-import com.rayzr522.bitzapi.client.BitzMessages;
 import com.rayzr522.bitzapi.commands.BitzCommand;
 import com.rayzr522.bitzapi.commands.CommandInfo;
-import com.rayzr522.bitzapi.utils.commands.CommandUtils;
+import com.rayzr522.bitzapi.message.BitzMessages;
+import com.rayzr522.bitzapi.utils.CommandUtils;
 
 @CommandInfo(name = "arena remove", usage = "/{command} setup arena remove [name]", desc = "Remove the selected or specified arena", pattern = "ar(ena)? remove", perm = "{base}.setup.arena.remove")
 public class MGPCSetupArenaRemove implements BitzCommand {

@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import com.rayzr522.bglib.handling.MinigameHandler;
-import com.rayzr522.bitzapi.utils.MapUtils;
+import com.rayzr522.bitzapi.utils.data.MapUtils;
 
 /**
  * A minigame building block the is triggered by an event

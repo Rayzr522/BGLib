@@ -3,8 +3,8 @@ package com.rayzr522.bglib.messaging;
 
 import org.bukkit.ChatColor;
 
-import com.rayzr522.bitzapi.client.Message;
-import com.rayzr522.bitzapi.client.Messenger;
+import com.rayzr522.bitzapi.message.Message;
+import com.rayzr522.bitzapi.message.Messenger;
 
 public enum MGMessages {
 

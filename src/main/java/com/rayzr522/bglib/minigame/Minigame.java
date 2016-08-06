@@ -15,9 +15,9 @@ import com.rayzr522.bglib.building.BGameplay;
 import com.rayzr522.bglib.data.MinigameData;
 import com.rayzr522.bglib.handling.MinigameHandler;
 import com.rayzr522.bglib.plugin.MinigamePlugin;
-import com.rayzr522.bitzapi.utils.MapUtils;
-import com.rayzr522.bitzapi.utils.commands.TextUtils;
+import com.rayzr522.bitzapi.utils.TextUtils;
 import com.rayzr522.bitzapi.utils.data.ListUtils;
+import com.rayzr522.bitzapi.utils.data.MapUtils;
 
 /**
  * 

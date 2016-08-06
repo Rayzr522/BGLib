@@ -11,7 +11,7 @@ import com.rayzr522.bglib.utils.MinigameUtils;
 import com.rayzr522.bitzapi.BitzPlugin;
 import com.rayzr522.bitzapi.commands.BitzCommand;
 import com.rayzr522.bitzapi.commands.CommandInfo;
-import com.rayzr522.bitzapi.utils.commands.CommandUtils;
+import com.rayzr522.bitzapi.utils.CommandUtils;
 
 @CommandInfo(name = "leave", usage = "/{command} leave", desc = "Leave an arena", pattern = "l(eave)?", perm = "{base}.game.leave")
 public class MGPCGamePlayerLeave implements BitzCommand {
