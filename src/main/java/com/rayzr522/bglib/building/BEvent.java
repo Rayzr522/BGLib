@@ -2,34 +2,47 @@
 package com.rayzr522.bglib.building;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import com.rayzr522.bglib.handling.MinigameHandler;
+import com.rayzr522.bitzapi.utils.data.ListUtils;
 import com.rayzr522.bitzapi.utils.data.MapUtils;
 
 /**
  * A minigame building block the is triggered by an event
  * 
- * @author PeterBlood
+ * @author Rayzr522
  */
 public abstract class BEvent {
 
 	/**
-	 * Warning: if you set {@code eventClass} to things that are called often (e.g. 
-	 * {@link PlayerMoveEvent}{@code .class}) then this can quickly cause lag.
+	 * Warning: if you set {@code eventClass} to things that are called often
+	 * (e.g. {@link PlayerMoveEvent}{@code .class}) then this can quickly cause
+	 * lag.
 	 * 
 	 */
-	protected Class<? extends Event>	eventClass;
-	protected HashMap<UUID, Boolean>	enabledPlayers;
+	protected List<Class<? extends Event>>	eventClasses;
+	protected HashMap<UUID, Boolean>		enabledPlayers;
 
-	public BEvent(Class<? extends Event> eventClass) {
+	public BEvent() {
 
-		this.eventClass = eventClass;
-		this.enabledPlayers = MapUtils.<UUID, Boolean> empty();
+		this.eventClasses = ListUtils.empty();
+		this.enabledPlayers = MapUtils.empty();
 
+	}
+
+	public abstract void onCreate();
+
+	public void addEvent(Class<? extends Event> clazz) {
+		eventClasses.add(clazz);
+	}
+
+	public void removeEvent(Class<? extends Event> clazz) {
+		eventClasses.remove(clazz);
 	}
 
 	/**
@@ -41,13 +54,13 @@ public abstract class BEvent {
 	 */
 	public abstract void call(Event event);
 
-	public Class<? extends Event> getEventClass() {
-		return eventClass;
+	public List<Class<? extends Event>> getEventClasses() {
+		return eventClasses;
 	}
 
 	public boolean isEventClass(Event e) {
 
-		return e.getClass() == eventClass;
+		return eventClasses.contains(e.getClass());
 
 	}
 

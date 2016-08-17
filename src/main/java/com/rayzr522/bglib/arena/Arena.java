@@ -20,7 +20,7 @@ import com.rayzr522.bitzapi.world.Region;
  * 
  * Abstract arena class for minigames with base functionally already written
  * 
- * @author PeterBlood
+ * @author Rayzr522
  *
  */
 public abstract class Arena implements Serializable<Arena> {

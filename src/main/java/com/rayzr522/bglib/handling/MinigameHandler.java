@@ -35,7 +35,7 @@ public class MinigameHandler implements Listener {
 
 			for (BEvent eventBlock : minigame.getEventBlocks(event.getClass())) {
 
-				if (eventBlock.getEventClass() != event.getClass()) {
+				if (!eventBlock.isEventClass(event)) {
 					continue;
 				}
 
@@ -51,12 +51,14 @@ public class MinigameHandler implements Listener {
 		return registeredEvents;
 	}
 
-	public void registerEvent(Class<? extends Event> eventClass) {
+	public void registerEvents(List<Class<? extends Event>> eventClasses) {
 
-		if (registeredEvents.contains(eventClass)) { return; }
+		eventClasses.stream().filter(clazz -> !registeredEvents.contains(clazz)).forEach((clazz) -> {
 
-		registeredEvents.add(eventClass);
-		Bukkit.getServer().getPluginManager().registerEvent(eventClass, executor, EventPriority.NORMAL, executor, plugin);
+			registeredEvents.add(clazz);
+			Bukkit.getServer().getPluginManager().registerEvent(clazz, executor, EventPriority.HIGH, executor, plugin);
+
+		});
 
 	}
 

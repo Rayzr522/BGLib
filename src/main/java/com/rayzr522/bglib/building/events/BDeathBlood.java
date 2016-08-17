@@ -15,8 +15,9 @@ import com.rayzr522.bglib.building.BEvent;
 
 public class BDeathBlood extends BEvent {
 
-	public BDeathBlood() {
-		super(PlayerDeathEvent.class);
+	@Override
+	public void onCreate() {
+		addEvent(PlayerDeathEvent.class);
 	}
 
 	public static int		BLOOD_AMOUNT	= 10;
@@ -26,8 +27,6 @@ public class BDeathBlood extends BEvent {
 
 	@Override
 	public void call(Event event) {
-
-		if (!isEventClass(event)) { return; }
 
 		PlayerDeathEvent e = (PlayerDeathEvent) event;
 		Player player = e.getEntity();

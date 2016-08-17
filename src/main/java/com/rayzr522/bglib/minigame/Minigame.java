@@ -21,23 +21,23 @@ import com.rayzr522.bitzapi.utils.data.MapUtils;
 
 /**
  * 
- * @author PeterBlood
+ * @author Rayzr522
  * @see MinigamePlugin
  *
  */
 public class Minigame {
 
-	private HashMap<BEvent, Class<? extends Event>>			eventBlocks		= MapUtils.<BEvent, Class<? extends Event>> empty();
-	private HashMap<Class<? extends Event>, List<BEvent>>	mappedEvents	= MapUtils.<Class<? extends Event>, List<BEvent>> empty();
+	private List<BEvent>									eventBlocks		= ListUtils.empty();
+	private HashMap<Class<? extends Event>, List<BEvent>>	mappedEvents	= MapUtils.empty();
 
-	private List<BGameplay> gameplayBlocks = ListUtils.<BGameplay> empty();
+	private List<BGameplay>									gameplayBlocks	= ListUtils.<BGameplay> empty();
 
-	private List<Arena> arenas = ListUtils.<Arena> empty();
+	private List<Arena>										arenas			= ListUtils.<Arena> empty();
 
-	private MinigamePlugin	plugin;
-	private MinigameHandler	handler;
-	private MinigameData	data;
-	private MinigameConfig	minigameConfig;
+	private MinigamePlugin									plugin;
+	private MinigameHandler									handler;
+	private MinigameData									data;
+	private MinigameConfig									minigameConfig;
 
 	public Minigame(MinigamePlugin plugin, MinigameConfig config) {
 
@@ -55,24 +55,23 @@ public class Minigame {
 	}
 
 	/**
-	 * @param bEvent the {@link BEvent} to add
+	 * @param bEvent
+	 *            the {@link BEvent} to add
 	 */
 	public void addBEvent(BEvent bEvent) {
 
-		eventBlocks.put(bEvent, bEvent.getEventClass());
-		Class<? extends Event> eventClass = bEvent.getEventClass();
+		eventBlocks.add(bEvent);
+		handler.registerEvents(bEvent.getEventClasses());
 
-		if (mappedEvents.get(eventClass) == null) {
-			mappedEvents.put(eventClass, ListUtils.<BEvent> empty());
+		for (Class<? extends Event> clazz : bEvent.getEventClasses()) {
+
+			List<BEvent> events = mappedEvents.get(clazz);
+			if (events == null) events = ListUtils.empty();
+
+			events.add(bEvent);
+			mappedEvents.put(clazz, events);
+
 		}
-
-		List<BEvent> classEvents = mappedEvents.get(eventClass);
-
-		classEvents.add(bEvent);
-
-		mappedEvents.put(eventClass, classEvents);
-
-		handler.registerEvent(bEvent.getEventClass());
 
 	}
 
