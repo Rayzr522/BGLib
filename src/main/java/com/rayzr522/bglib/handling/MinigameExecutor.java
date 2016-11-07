@@ -8,20 +8,22 @@ import org.bukkit.plugin.EventExecutor;
 
 public class MinigameExecutor implements Listener, EventExecutor {
 
-	private MinigameHandler handler;
+    private MinigameHandler handler;
 
-	public MinigameExecutor(MinigameHandler handler) {
+    public MinigameExecutor(MinigameHandler handler) {
 
-		this.handler = handler;
+        this.handler = handler;
 
-	}
+    }
 
-	public void execute(Listener listener, Event event) throws EventException {
+    public void execute(Listener listener, Event event) throws EventException {
 
-		if (listener != handler) { return; }
+        if (listener != handler) {
+            return;
+        }
 
-		handler.event(event);
+        handler.event(event);
 
-	}
+    }
 
 }

@@ -8,28 +8,28 @@ import com.rayzr522.bitzapi.utils.data.ListUtils;
 
 public class GlobalTimer implements Runnable {
 
-	private static List<MinigamePlugin> registeredPlugins = ListUtils.<MinigamePlugin> empty();
+    private static List<MinigamePlugin> registeredPlugins = ListUtils.<MinigamePlugin> empty();
 
-	public void run() {
+    public void run() {
 
-		tick();
+        tick();
 
-	}
+    }
 
-	private void tick() {
+    private void tick() {
 
-		for (MinigamePlugin pl : registeredPlugins) {
+        for (MinigamePlugin pl : registeredPlugins) {
 
-			pl.getMinigame().timerTick();
+            pl.getMinigame().timerTick();
 
-		}
+        }
 
-	}
+    }
 
-	public void registerPlugin(MinigamePlugin plugin) {
-		if (plugin != null) {
-			registeredPlugins.add(plugin);
-		}
-	}
+    public void registerPlugin(MinigamePlugin plugin) {
+        if (plugin != null) {
+            registeredPlugins.add(plugin);
+        }
+    }
 
 }

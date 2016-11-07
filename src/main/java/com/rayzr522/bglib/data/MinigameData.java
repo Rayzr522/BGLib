@@ -12,41 +12,41 @@ import com.rayzr522.bitzapi.utils.data.MapUtils;
 
 public class MinigameData {
 
-	private HashMap<UUID, Arena>	selectedArenas	= MapUtils.<UUID, Arena> empty();
-	private MinigamePlugin			plugin;
+    private HashMap<UUID, Arena> selectedArenas = MapUtils.<UUID, Arena> empty();
+    private MinigamePlugin       plugin;
 
-	public MinigameData(MinigamePlugin plugin) {
+    public MinigameData(MinigamePlugin plugin) {
 
-		this.plugin = plugin;
+        this.plugin = plugin;
 
-	}
+    }
 
-	public Arena getSelectedArena(Player player) {
+    public Arena getSelectedArena(Player player) {
 
-		return getSelectedArena(player.getUniqueId());
+        return getSelectedArena(player.getUniqueId());
 
-	}
+    }
 
-	public Arena getSelectedArena(UUID uniqueId) {
+    public Arena getSelectedArena(UUID uniqueId) {
 
-		return selectedArenas.get(uniqueId);
+        return selectedArenas.get(uniqueId);
 
-	}
+    }
 
-	public void setSelectedArena(Player player, Arena arena) {
+    public void setSelectedArena(Player player, Arena arena) {
 
-		setSelectedArena(player.getUniqueId(), arena);
+        setSelectedArena(player.getUniqueId(), arena);
 
-	}
+    }
 
-	public void setSelectedArena(UUID uniqueId, Arena arena) {
+    public void setSelectedArena(UUID uniqueId, Arena arena) {
 
-		selectedArenas.put(uniqueId, arena);
+        selectedArenas.put(uniqueId, arena);
 
-	}
+    }
 
-	public MinigamePlugin getPlugin() {
-		return plugin;
-	}
+    public MinigamePlugin getPlugin() {
+        return plugin;
+    }
 
 }

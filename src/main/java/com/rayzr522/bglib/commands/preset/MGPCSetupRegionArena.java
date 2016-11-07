@@ -20,38 +20,41 @@ import com.rayzr522.bitzapi.world.PartialRegion;
 @CommandInfo(name = "region arena", usage = "/{command} setup region arena", desc = "Set the arena region for the selected arena", pattern = "region a(rena)?", perm = "{base}.setup.region.arena")
 public class MGPCSetupRegionArena implements BitzCommand {
 
-	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
+    public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
 
-		if (!CommandUtils.isPlayer(sender)) { return true; }
+        if (!CommandUtils.isPlayer(sender)) {
+            return true;
+        }
 
-		if (!MinigameUtils.isMGPlugin(plugin)) {
-			plugin.messenger.playerMessage(sender, MGMessages.MGPLUGIN_ONLY_COMMAND.msg);
-			return true;
-		};
+        if (!MinigameUtils.isMGPlugin(plugin)) {
+            plugin.messenger.playerMessage(sender, MGMessages.MGPLUGIN_ONLY_COMMAND.msg);
+            return true;
+        }
+        ;
 
-		Player player = (Player) sender;
+        Player player = (Player) sender;
 
-		MinigamePlugin pl = (MinigamePlugin) plugin;
+        MinigamePlugin pl = (MinigamePlugin) plugin;
 
-		MinigameData data = pl.getMinigame().getData();
+        MinigameData data = pl.getMinigame().getData();
 
-		Arena arena = data.getSelectedArena(player);
+        Arena arena = data.getSelectedArena(player);
 
-		if (arena == null) {
-			plugin.messenger.playerMessage(sender, MGMessages.MUST_SELECT_ARENA.msg);
-			return true;
-		}
+        if (arena == null) {
+            plugin.messenger.playerMessage(sender, MGMessages.MUST_SELECT_ARENA.msg);
+            return true;
+        }
 
-		PartialRegion partial = BitzData.getRegionSelection(player);
-		if (!partial.isComplete()) {
-			plugin.messenger.playerMessage(sender, BitzMessages.NO_REGION_SEL.msg);
-			return true;
-		}
+        PartialRegion partial = BitzData.getRegionSelection(player);
+        if (!partial.isComplete()) {
+            plugin.messenger.playerMessage(sender, BitzMessages.NO_REGION_SEL.msg);
+            return true;
+        }
 
-		arena.setArenaRegion(partial.toRegion());
-		plugin.messenger.playerMessage(sender, MGMessages.ARENA_REGION_SET.msg, arena.getName());
+        arena.setArenaRegion(partial.toRegion());
+        plugin.messenger.playerMessage(sender, MGMessages.ARENA_REGION_SET.msg, arena.getName());
 
-		return true;
-	}
+        return true;
+    }
 
 }

@@ -8,60 +8,60 @@ import com.rayzr522.bitzapi.commands.CommandHandler;
 
 public class CommandBuilder {
 
-	private CommandHandler handler;
+    private CommandHandler handler;
 
-	private CommandBuilder(CommandHandler handler) {
+    private CommandBuilder(CommandHandler handler) {
 
-		this.handler = handler;
+        this.handler = handler;
 
-	}
+    }
 
-	public static CommandBuilder create(CommandHandler handler) {
+    public static CommandBuilder create(CommandHandler handler) {
 
-		return new CommandBuilder(handler);
+        return new CommandBuilder(handler);
 
-	}
+    }
 
-	public CommandBuilder add(Class<? extends BitzCommand> commandClass) {
+    public CommandBuilder add(Class<? extends BitzCommand> commandClass) {
 
-		handler.registerCommand(commandClass);
+        handler.registerCommand(commandClass);
 
-		return this;
+        return this;
 
-	}
+    }
 
-	public CommandBuilder addList(List<Class<? extends BitzCommand>> commandClasses) {
+    public CommandBuilder addList(List<Class<? extends BitzCommand>> commandClasses) {
 
-		for (Class<? extends BitzCommand> clazz : commandClasses) {
+        for (Class<? extends BitzCommand> clazz : commandClasses) {
 
-			add(clazz);
+            add(clazz);
 
-		}
+        }
 
-		return this;
+        return this;
 
-	}
+    }
 
-	public CommandBuilder add(List<Class<? extends BitzCommand>> commandClasses) {
+    public CommandBuilder add(List<Class<? extends BitzCommand>> commandClasses) {
 
-		if (commandClasses.size() > 0) {
+        if (commandClasses.size() > 0) {
 
-			for (Class<? extends BitzCommand> commandClass : commandClasses) {
+            for (Class<? extends BitzCommand> commandClass : commandClasses) {
 
-				handler.registerCommand(commandClass);
+                handler.registerCommand(commandClass);
 
-			}
+            }
 
-		}
+        }
 
-		return this;
+        return this;
 
-	}
+    }
 
-	public CommandHandler build() {
+    public CommandHandler build() {
 
-		return handler;
+        return handler;
 
-	}
+    }
 
 }

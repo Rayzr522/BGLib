@@ -10,11 +10,11 @@ import com.rayzr522.bitzapi.commands.CommandInfo;
 @CommandInfo(name = "version", usage = "/bglib version", desc = "Plugin information", pattern = "ver(sion)?|info", perm = "bglib.info")
 public class BGCVersion implements BitzCommand {
 
-	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
+    public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
 
-		plugin.messenger.playerInfo(sender, "You are running BGLib v" + plugin.getVersion());
+        plugin.messenger.playerInfo(sender, "You are running BGLib v" + plugin.getVersion());
 
-		return true;
-	}
+        return true;
+    }
 
 }

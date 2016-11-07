@@ -7,54 +7,54 @@ import com.rayzr522.bitzapi.utils.data.PlayerData;
 
 public class APlayer {
 
-	private Player		player;
-	private PlayerData	data;
+    private Player     player;
+    private PlayerData data;
 
-	public APlayer(Player player) {
+    public APlayer(Player player) {
 
-		this.player = player;
-		this.data = new PlayerData(player);
+        this.player = player;
+        this.data = new PlayerData(player);
 
-	}
+    }
 
-	public PlayerData storeData() {
+    public PlayerData storeData() {
 
-		data.restore();
+        data.restore();
 
-		return data;
+        return data;
 
-	}
+    }
 
-	public void clearPlayer() {
-		data.clearPlayer();
-	}
+    public void clearPlayer() {
+        data.clearPlayer();
+    }
 
-	public void restoreData() {
+    public void restoreData() {
 
-		if (!data.isStored()) {
+        if (!data.isStored()) {
 
-		return;
+            return;
 
-		}
+        }
 
-		data.restore();
+        data.restore();
 
-	}
+    }
 
-	public Player getPlayer() {
-		return player;
-	}
+    public Player getPlayer() {
+        return player;
+    }
 
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 
-	public PlayerData getData() {
-		return data;
-	}
+    public PlayerData getData() {
+        return data;
+    }
 
-	public void setData(PlayerData data) {
-		this.data = data;
-	}
+    public void setData(PlayerData data) {
+        this.data = data;
+    }
 
 }

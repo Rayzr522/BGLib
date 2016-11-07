@@ -7,22 +7,22 @@ import com.rayzr522.bitzapi.events.BitzEvent;
 
 public class MinigameJoinEvent extends BitzEvent {
 
-	private Arena	arena;
-	private APlayer	player;
+    private Arena   arena;
+    private APlayer player;
 
-	public MinigameJoinEvent(Arena arena, APlayer player) {
+    public MinigameJoinEvent(Arena arena, APlayer player) {
 
-		this.arena = arena;
-		this.player = player;
+        this.arena = arena;
+        this.player = player;
 
-	}
+    }
 
-	public Arena getArena() {
-		return arena;
-	}
+    public Arena getArena() {
+        return arena;
+    }
 
-	public APlayer getPlayer() {
-		return player;
-	}
+    public APlayer getPlayer() {
+        return player;
+    }
 
 }

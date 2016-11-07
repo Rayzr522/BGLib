@@ -18,47 +18,50 @@ import com.rayzr522.bitzapi.utils.CommandUtils;
 @CommandInfo(name = "arena rename", usage = "/{command} setup arena rename <name> [arena]", desc = "Rename the selected or specified arena", pattern = "ar(ena)? rename", perm = "{base}.setup.arena.rename")
 public class MGPCSetupArenaRename implements BitzCommand {
 
-	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
+    public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
 
-		if (!CommandUtils.isPlayer(sender)) { return true; }
+        if (!CommandUtils.isPlayer(sender)) {
+            return true;
+        }
 
-		if (!MinigameUtils.isMGPlugin(plugin)) {
-			plugin.messenger.playerMessage(sender, MGMessages.MGPLUGIN_ONLY_COMMAND.msg);
-			return true;
-		};
+        if (!MinigameUtils.isMGPlugin(plugin)) {
+            plugin.messenger.playerMessage(sender, MGMessages.MGPLUGIN_ONLY_COMMAND.msg);
+            return true;
+        }
+        ;
 
-		Player player = (Player) sender;
+        Player player = (Player) sender;
 
-		MinigamePlugin pl = (MinigamePlugin) plugin;
+        MinigamePlugin pl = (MinigamePlugin) plugin;
 
-		MinigameData data = pl.getMinigame().getData();
+        MinigameData data = pl.getMinigame().getData();
 
-		Arena selectedArena = data.getSelectedArena(player);
+        Arena selectedArena = data.getSelectedArena(player);
 
-		if (selectedArena == null) {
+        if (selectedArena == null) {
 
-			if (args.length < 2) {
+            if (args.length < 2) {
 
-				plugin.messenger.playerMessage(sender, BitzMessages.NO_ARG.msg, "arena");
-				return false;
+                plugin.messenger.playerMessage(sender, BitzMessages.NO_ARG.msg, "arena");
+                return false;
 
-			}
+            }
 
-			selectedArena = pl.getMinigame().getArena(args[1]);
+            selectedArena = pl.getMinigame().getArena(args[1]);
 
-			if (selectedArena == null) {
+            if (selectedArena == null) {
 
-				plugin.messenger.playerMessage(sender, MGMessages.NO_ARENA.msg, args[1]);
-				return true;
+                plugin.messenger.playerMessage(sender, MGMessages.NO_ARENA.msg, args[1]);
+                return true;
 
-			}
+            }
 
-		}
+        }
 
-		selectedArena.setName(args[0]);
-		plugin.messenger.playerMessage(sender, MGMessages.ARENA_RENAMED.msg, selectedArena.getName());
+        selectedArena.setName(args[0]);
+        plugin.messenger.playerMessage(sender, MGMessages.ARENA_RENAMED.msg, selectedArena.getName());
 
-		return true;
-	}
+        return true;
+    }
 
 }

@@ -18,53 +18,56 @@ import com.rayzr522.bitzapi.utils.CommandUtils;
 @CommandInfo(name = "arena remove", usage = "/{command} setup arena remove [name]", desc = "Remove the selected or specified arena", pattern = "ar(ena)? remove", perm = "{base}.setup.arena.remove")
 public class MGPCSetupArenaRemove implements BitzCommand {
 
-	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
+    public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
 
-		if (!CommandUtils.isPlayer(sender)) { return true; }
+        if (!CommandUtils.isPlayer(sender)) {
+            return true;
+        }
 
-		if (!MinigameUtils.isMGPlugin(plugin)) {
-			plugin.messenger.playerMessage(sender, MGMessages.MGPLUGIN_ONLY_COMMAND.msg);
-			return true;
-		};
+        if (!MinigameUtils.isMGPlugin(plugin)) {
+            plugin.messenger.playerMessage(sender, MGMessages.MGPLUGIN_ONLY_COMMAND.msg);
+            return true;
+        }
+        ;
 
-		Player player = (Player) sender;
+        Player player = (Player) sender;
 
-		MinigamePlugin pl = (MinigamePlugin) plugin;
+        MinigamePlugin pl = (MinigamePlugin) plugin;
 
-		MinigameData data = pl.getMinigame().getData();
+        MinigameData data = pl.getMinigame().getData();
 
-		Arena removedArena;
-		Arena selectedArena = data.getSelectedArena(player);
-		if (selectedArena == null) {
+        Arena removedArena;
+        Arena selectedArena = data.getSelectedArena(player);
+        if (selectedArena == null) {
 
-			if (args.length < 1) {
+            if (args.length < 1) {
 
-				plugin.messenger.playerMessage(sender, BitzMessages.NO_ARG.msg, "name");
-				return false;
+                plugin.messenger.playerMessage(sender, BitzMessages.NO_ARG.msg, "name");
+                return false;
 
-			}
+            }
 
-			selectedArena = pl.getMinigame().getArena(args[0]);
+            selectedArena = pl.getMinigame().getArena(args[0]);
 
-			if (selectedArena == null) {
+            if (selectedArena == null) {
 
-				plugin.messenger.playerMessage(sender, MGMessages.NO_ARENA.msg, args[0]);
-				return true;
+                plugin.messenger.playerMessage(sender, MGMessages.NO_ARENA.msg, args[0]);
+                return true;
 
-			}
+            }
 
-		}
+        }
 
-		removedArena = pl.getMinigame().removeArena(selectedArena);
-		if (removedArena == null) {
-			plugin.messenger.playerMessage(sender, MGMessages.NO_ARENA.msg, selectedArena.getName());
-			return false;
-		}
+        removedArena = pl.getMinigame().removeArena(selectedArena);
+        if (removedArena == null) {
+            plugin.messenger.playerMessage(sender, MGMessages.NO_ARENA.msg, selectedArena.getName());
+            return false;
+        }
 
-		plugin.messenger.playerMessage(sender, MGMessages.ARENA_REMOVED.msg, removedArena.getName());
-		pl.getMinigame().getData().setSelectedArena(player, null);
+        plugin.messenger.playerMessage(sender, MGMessages.ARENA_REMOVED.msg, removedArena.getName());
+        pl.getMinigame().getData().setSelectedArena(player, null);
 
-		return true;
-	}
+        return true;
+    }
 
 }

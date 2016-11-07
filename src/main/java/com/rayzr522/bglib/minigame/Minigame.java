@@ -27,202 +27,207 @@ import com.rayzr522.bitzapi.utils.data.MapUtils;
  */
 public class Minigame {
 
-	private List<BEvent>									eventBlocks		= ListUtils.empty();
-	private HashMap<Class<? extends Event>, List<BEvent>>	mappedEvents	= MapUtils.empty();
+    private List<BEvent>                                  eventBlocks    = ListUtils.empty();
+    private HashMap<Class<? extends Event>, List<BEvent>> mappedEvents   = MapUtils.empty();
 
-	private List<BGameplay>									gameplayBlocks	= ListUtils.<BGameplay> empty();
+    private List<BGameplay>                               gameplayBlocks = ListUtils.<BGameplay> empty();
 
-	private List<Arena>										arenas			= ListUtils.<Arena> empty();
+    private List<Arena>                                   arenas         = ListUtils.<Arena> empty();
 
-	private MinigamePlugin									plugin;
-	private MinigameHandler									handler;
-	private MinigameData									data;
-	private MinigameConfig									minigameConfig;
+    private MinigamePlugin                                plugin;
+    private MinigameHandler                               handler;
+    private MinigameData                                  data;
+    private MinigameConfig                                minigameConfig;
 
-	public Minigame(MinigamePlugin plugin, MinigameConfig config) {
+    public Minigame(MinigamePlugin plugin, MinigameConfig config) {
 
-		this.plugin = plugin;
-		this.handler = new MinigameHandler(this, plugin);
-		this.data = new MinigameData(plugin);
-		this.minigameConfig = config;
+        this.plugin = plugin;
+        this.handler = new MinigameHandler(this, plugin);
+        this.data = new MinigameData(plugin);
+        this.minigameConfig = config;
 
-	}
+    }
 
-	public static MinigameBuilder builder(MinigamePlugin plugin, MinigameConfig config) {
+    public static MinigameBuilder builder(MinigamePlugin plugin, MinigameConfig config) {
 
-		return new MinigameBuilder(new Minigame(plugin, config), config);
+        return new MinigameBuilder(new Minigame(plugin, config), config);
 
-	}
+    }
 
-	/**
-	 * @param bEvent
-	 *            the {@link BEvent} to add
-	 */
-	public void addBEvent(BEvent bEvent) {
+    /**
+     * @param bEvent
+     *            the {@link BEvent} to add
+     */
+    public void addBEvent(BEvent bEvent) {
 
-		eventBlocks.add(bEvent);
-		handler.registerEvents(bEvent.getEventClasses());
+        eventBlocks.add(bEvent);
+        handler.registerEvents(bEvent.getEventClasses());
 
-		for (Class<? extends Event> clazz : bEvent.getEventClasses()) {
+        for (Class<? extends Event> clazz : bEvent.getEventClasses()) {
 
-			List<BEvent> events = mappedEvents.get(clazz);
-			if (events == null) events = ListUtils.empty();
+            List<BEvent> events = mappedEvents.get(clazz);
+            if (events == null)
+                events = ListUtils.empty();
 
-			events.add(bEvent);
-			mappedEvents.put(clazz, events);
+            events.add(bEvent);
+            mappedEvents.put(clazz, events);
 
-		}
+        }
 
-	}
+    }
 
-	public void addBGameplay(BGameplay bGameplay) {
+    public void addBGameplay(BGameplay bGameplay) {
 
-		gameplayBlocks.add(bGameplay);
+        gameplayBlocks.add(bGameplay);
 
-	}
+    }
 
-	public Arena createArena(String name) {
+    public Arena createArena(String name) {
 
-		Arena arena = getArena(name);
+        Arena arena = getArena(name);
 
-		if (arena != null) { return arena; }
+        if (arena != null) {
+            return arena;
+        }
 
-		arena = new MinigameArena(name, this);
+        arena = new MinigameArena(name, this);
 
-		arenas.add(arena);
+        arenas.add(arena);
 
-		return arena;
+        return arena;
 
-	}
+    }
 
-	public Arena removeArena(String name) {
+    public Arena removeArena(String name) {
 
-		Arena arena = getArena(name);
-		arenas.remove(arena);
-		return arena;
+        Arena arena = getArena(name);
+        arenas.remove(arena);
+        return arena;
 
-	}
+    }
 
-	public Arena removeArena(UUID id) {
+    public Arena removeArena(UUID id) {
 
-		Arena arena = getArena(id);
-		arenas.remove(arena);
-		return arena;
+        Arena arena = getArena(id);
+        arenas.remove(arena);
+        return arena;
 
-	}
+    }
 
-	public Arena removeArena(Arena arena) {
+    public Arena removeArena(Arena arena) {
 
-		return arenas.remove(arena) ? arena : null;
+        return arenas.remove(arena) ? arena : null;
 
-	}
+    }
 
-	public Arena getArena(Location loc) {
+    public Arena getArena(Location loc) {
 
-		for (Arena arena : arenas) {
+        for (Arena arena : arenas) {
 
-			if (!arena.isSetup()) {
-				continue;
-			}
+            if (!arena.isSetup()) {
+                continue;
+            }
 
-			if (arena.insideArena(loc)) { return arena; }
+            if (arena.insideArena(loc)) {
+                return arena;
+            }
 
-		}
+        }
 
-		return null;
+        return null;
 
-	}
+    }
 
-	public Arena getArena(String name) {
+    public Arena getArena(String name) {
 
-		for (Arena arena : arenas) {
+        for (Arena arena : arenas) {
 
-			if (TextUtils.equalsLowerCase(arena.getName(), name)) {
+            if (TextUtils.equalsLowerCase(arena.getName(), name)) {
 
-			return arena;
+                return arena;
 
-			}
+            }
 
-		}
+        }
 
-		return null;
+        return null;
 
-	}
+    }
 
-	public Arena getArena(UUID id) {
+    public Arena getArena(UUID id) {
 
-		for (Arena arena : arenas) {
+        for (Arena arena : arenas) {
 
-			if (arena.getId() == id) {
+            if (arena.getId() == id) {
 
-			return arena;
+                return arena;
 
-			}
+            }
 
-		}
+        }
 
-		return null;
+        return null;
 
-	}
+    }
 
-	public Arena getArena(Player player) {
+    public Arena getArena(Player player) {
 
-		for (Arena arena : arenas) {
+        for (Arena arena : arenas) {
 
-			if (arena.isPlayerInArena(player)) {
+            if (arena.isPlayerInArena(player)) {
 
-			return arena;
+                return arena;
 
-			}
+            }
 
-		}
+        }
 
-		return null;
+        return null;
 
-	}
+    }
 
-	public List<BEvent> getEventBlocks(Class<? extends Event> eventClass) {
+    public List<BEvent> getEventBlocks(Class<? extends Event> eventClass) {
 
-		return mappedEvents.get(eventClass);
+        return mappedEvents.get(eventClass);
 
-	}
+    }
 
-	public MinigameHandler getHandler() {
-		return handler;
-	}
+    public MinigameHandler getHandler() {
+        return handler;
+    }
 
-	public HashMap<Class<? extends Event>, List<BEvent>> getMappedEvents() {
-		return mappedEvents;
-	}
+    public HashMap<Class<? extends Event>, List<BEvent>> getMappedEvents() {
+        return mappedEvents;
+    }
 
-	public void setMappedEvents(HashMap<Class<? extends Event>, List<BEvent>> mappedEvents) {
-		this.mappedEvents = mappedEvents;
-	}
+    public void setMappedEvents(HashMap<Class<? extends Event>, List<BEvent>> mappedEvents) {
+        this.mappedEvents = mappedEvents;
+    }
 
-	public List<Arena> getArenas() {
-		return arenas;
-	}
+    public List<Arena> getArenas() {
+        return arenas;
+    }
 
-	public MinigamePlugin getPlugin() {
-		return plugin;
-	}
+    public MinigamePlugin getPlugin() {
+        return plugin;
+    }
 
-	public MinigameData getData() {
-		return data;
-	}
+    public MinigameData getData() {
+        return data;
+    }
 
-	public MinigameConfig getConfig() {
-		return minigameConfig;
-	}
+    public MinigameConfig getConfig() {
+        return minigameConfig;
+    }
 
-	public void timerTick() {
+    public void timerTick() {
 
-		for (Arena arena : arenas) {
+        for (Arena arena : arenas) {
 
-			arena.timerTick();
+            arena.timerTick();
 
-		}
+        }
 
-	}
+    }
 
 }

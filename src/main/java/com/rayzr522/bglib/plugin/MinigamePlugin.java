@@ -6,13 +6,13 @@ import com.rayzr522.bitzapi.BitzPlugin;
 
 public abstract class MinigamePlugin extends BitzPlugin {
 
-	/**
-	 * This NEEDS to be set up
-	 */
-	protected Minigame minigame;
+    /**
+     * This NEEDS to be set up
+     */
+    protected Minigame minigame;
 
-	public Minigame getMinigame() {
-		return minigame;
-	}
+    public Minigame getMinigame() {
+        return minigame;
+    }
 
 }

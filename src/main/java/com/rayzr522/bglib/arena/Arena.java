@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import com.rayzr522.bglib.arena.player.APlayer;
 import com.rayzr522.bglib.events.MinigameJoinEvent;
 import com.rayzr522.bglib.minigame.Minigame;
-import com.rayzr522.bitzapi.config.Serializable;
+import com.rayzr522.bitzapi.config.DEPRECATED_Serializable;
 import com.rayzr522.bitzapi.utils.data.ListUtils;
 import com.rayzr522.bitzapi.world.Region;
 
@@ -23,305 +23,313 @@ import com.rayzr522.bitzapi.world.Region;
  * @author Rayzr522
  *
  */
-public abstract class Arena implements Serializable<Arena> {
+public abstract class Arena implements DEPRECATED_Serializable<Arena> {
 
-	protected Minigame			minigame;
+    protected Minigame       minigame;
 
-	protected List<Round>		rounds;
-	protected int				currentRound	= 0;
+    protected List<Round>    rounds;
+    protected int            currentRound = 0;
 
-	protected List<APlayer>		players;
-	protected UUID				id;
+    protected List<APlayer>  players;
+    protected UUID           id;
 
-	protected Region			arenaRegion;
-	protected Region			lobbyRegion;
+    protected Region         arenaRegion;
+    protected Region         lobbyRegion;
 
-	protected Location			lobbySpawn;
-	protected List<Location>	playerSpawns;
+    protected Location       lobbySpawn;
+    protected List<Location> playerSpawns;
 
-	protected boolean			setup			= false;
-	protected String			name;
+    protected boolean        setup        = false;
+    protected String         name;
 
-	/**
-	 * @param id
-	 *            arena UUID
-	 * @param name
-	 *            arena name
-	 * @param minigame
-	 *            parent minigame
-	 */
-	public Arena(UUID id, String name, Minigame minigame) {
+    /**
+     * @param id
+     *            arena UUID
+     * @param name
+     *            arena name
+     * @param minigame
+     *            parent minigame
+     */
+    public Arena(UUID id, String name, Minigame minigame) {
 
-		this.id = id;
-		this.name = name;
-		this.minigame = minigame;
+        this.id = id;
+        this.name = name;
+        this.minigame = minigame;
 
-		this.rounds = ListUtils.<Round> empty();
-		this.players = ListUtils.<APlayer> empty();
+        this.rounds = ListUtils.<Round> empty();
+        this.players = ListUtils.<APlayer> empty();
 
-	}
+    }
 
-	/**
-	 * @param name
-	 *            arena name
-	 * @param minigame
-	 *            parent minigame
-	 */
-	public Arena(String name, Minigame minigame) {
+    /**
+     * @param name
+     *            arena name
+     * @param minigame
+     *            parent minigame
+     */
+    public Arena(String name, Minigame minigame) {
 
-		this(UUID.randomUUID(), name, minigame);
+        this(UUID.randomUUID(), name, minigame);
 
-	}
+    }
 
-	/**
-	 * @param player
-	 *            the player to join the arena
-	 * @return true if the player successfully joined, false if it didn't
-	 */
-	public boolean join(Player player) {
+    /**
+     * @param player
+     *            the player to join the arena
+     * @return true if the player successfully joined, false if it didn't
+     */
+    public boolean join(Player player) {
 
-		if (player == null) { return false; }
+        if (player == null) {
+            return false;
+        }
 
-		APlayer aplayer = new APlayer(player);
+        APlayer aplayer = new APlayer(player);
 
-		if (players.contains(aplayer)) { return false; }
+        if (players.contains(aplayer)) {
+            return false;
+        }
 
-		players.add(aplayer);
-		Bukkit.getPluginManager().callEvent(new MinigameJoinEvent(this, aplayer));
+        players.add(aplayer);
+        Bukkit.getPluginManager().callEvent(new MinigameJoinEvent(this, aplayer));
 
-		if (minigame.getConfig().SAVE_INVENTORY_ON_JOIN) {
+        if (minigame.getConfig().SAVE_INVENTORY_ON_JOIN) {
 
-			aplayer.storeData();
+            aplayer.storeData();
 
-			if (minigame.getConfig().CLEAR_INVENTORY_ON_JOIN) {
+            if (minigame.getConfig().CLEAR_INVENTORY_ON_JOIN) {
 
-				aplayer.clearPlayer();
+                aplayer.clearPlayer();
 
-			}
+            }
 
-		}
+        }
 
-		onPlayerJoin(aplayer);
+        onPlayerJoin(aplayer);
 
-		return true;
+        return true;
 
-	}
+    }
 
-	/**
-	 * @param used
-	 *            for child classes to do stuff when a player joins
-	 */
-	public abstract void onPlayerJoin(APlayer aplayer);
+    /**
+     * @param used
+     *            for child classes to do stuff when a player joins
+     */
+    public abstract void onPlayerJoin(APlayer aplayer);
 
-	/**
-	 * Used for child classes to do stuff when a player joins an arena.
-	 * 
-	 * @param aplayer
-	 */
-	public boolean leave(Player player) {
+    /**
+     * Used for child classes to do stuff when a player joins an arena.
+     * 
+     * @param aplayer
+     */
+    public boolean leave(Player player) {
 
-		if (player == null) { return false; }
+        if (player == null) {
+            return false;
+        }
 
-		APlayer aplayer = getAPlayer(player);
+        APlayer aplayer = getAPlayer(player);
 
-		if (aplayer == null) { return false; }
+        if (aplayer == null) {
+            return false;
+        }
 
-		if (minigame.getConfig().RESTORE_INVENTORY_ON_JOIN) {
+        if (minigame.getConfig().RESTORE_INVENTORY_ON_JOIN) {
 
-			aplayer.restoreData();
+            aplayer.restoreData();
 
-		}
+        }
 
-		players.remove(aplayer);
+        players.remove(aplayer);
 
-		onPlayerLeave(aplayer);
+        onPlayerLeave(aplayer);
 
-		return true;
+        return true;
 
-	}
+    }
 
-	/**
-	 * Used for child classes to do stuff when a player leaves an arena.
-	 * 
-	 * @param aplayer
-	 */
-	public abstract void onPlayerLeave(APlayer aplayer);
+    /**
+     * Used for child classes to do stuff when a player leaves an arena.
+     * 
+     * @param aplayer
+     */
+    public abstract void onPlayerLeave(APlayer aplayer);
 
-	/**
-	 * @param player
-	 * @return The APlayer associated with {@code player} or {@code null}
-	 */
-	public APlayer getAPlayer(Player player) {
+    /**
+     * @param player
+     * @return The APlayer associated with {@code player} or {@code null}
+     */
+    public APlayer getAPlayer(Player player) {
 
-		for (APlayer aplayer : players) {
+        for (APlayer aplayer : players) {
 
-			if (aplayer.getPlayer().getUniqueId().equals(player.getUniqueId())) {
+            if (aplayer.getPlayer().getUniqueId().equals(player.getUniqueId())) {
 
-			return aplayer;
+                return aplayer;
 
-			}
+            }
 
-		}
+        }
 
-		return null;
+        return null;
 
-	}
+    }
 
-	/**
-	 * @param player
-	 * @return whether there is an {@code APlayer} instance in {@code players}
-	 *         that has a player with a matching UUID
-	 */
-	public boolean isPlayerInArena(Player player) {
+    /**
+     * @param player
+     * @return whether there is an {@code APlayer} instance in {@code players}
+     *         that has a player with a matching UUID
+     */
+    public boolean isPlayerInArena(Player player) {
 
-		return getAPlayer(player) == null;
+        return getAPlayer(player) == null;
 
-	}
+    }
 
-	/**
-	 * Rewards the player. NOTE: This will not automatically run. You have to
-	 * manually run this in {@code onPlayerLeave}. Also, don't put this in
-	 * {@code onPlayerKick} because that's usually only called in situations
-	 * where the server is shutting down, so we don't want to be managing
-	 * currency or items at that time
-	 * 
-	 * @param aplayer
-	 */
-	public abstract void rewardPlayer(APlayer aplayer);
+    /**
+     * Rewards the player. NOTE: This will not automatically run. You have to
+     * manually run this in {@code onPlayerLeave}. Also, don't put this in
+     * {@code onPlayerKick} because that's usually only called in situations
+     * where the server is shutting down, so we don't want to be managing
+     * currency or items at that time
+     * 
+     * @param aplayer
+     */
+    public abstract void rewardPlayer(APlayer aplayer);
 
-	public void kick() {
+    public void kick() {
 
-		for (APlayer aplayer : players) {
+        for (APlayer aplayer : players) {
 
-			onPlayerKick(aplayer);
+            onPlayerKick(aplayer);
 
-		}
+        }
 
-	}
+    }
 
-	/**
-	 * Used for child classes to do stuff when a player is kicked from an arena.
-	 * 
-	 * @param aplayer
-	 */
-	public abstract void onPlayerKick(APlayer aplayer);
+    /**
+     * Used for child classes to do stuff when a player is kicked from an arena.
+     * 
+     * @param aplayer
+     */
+    public abstract void onPlayerKick(APlayer aplayer);
 
-	public void forceKick() {
+    public void forceKick() {
 
-	}
+    }
 
-	public void kickAll() {
+    public void kickAll() {
 
-	}
+    }
 
-	public void forceKickAll() {
+    public void forceKickAll() {
 
-	}
+    }
 
-	private void checkSetup() {
+    private void checkSetup() {
 
-		if (arenaRegion == null || lobbyRegion == null || lobbySpawn == null || playerSpawns == null) {
-			setup = false;
-			return;
-		}
-		setup = true;
+        if (arenaRegion == null || lobbyRegion == null || lobbySpawn == null || playerSpawns == null) {
+            setup = false;
+            return;
+        }
+        setup = true;
 
-	}
+    }
 
-	public boolean isSetup() {
+    public boolean isSetup() {
 
-		checkSetup();
-		return setup;
+        checkSetup();
+        return setup;
 
-	}
+    }
 
-	public List<APlayer> getPlayers() {
-		return players;
-	}
+    public List<APlayer> getPlayers() {
+        return players;
+    }
 
-	public void setPlayers(List<APlayer> players) {
-		this.players = players;
-	}
+    public void setPlayers(List<APlayer> players) {
+        this.players = players;
+    }
 
-	public UUID getId() {
-		return id;
-	}
+    public UUID getId() {
+        return id;
+    }
 
-	public Region getArenaRegion() {
-		return arenaRegion;
-	}
+    public Region getArenaRegion() {
+        return arenaRegion;
+    }
 
-	public void setArenaRegion(Region aregion) {
-		this.arenaRegion = aregion;
-	}
+    public void setArenaRegion(Region aregion) {
+        this.arenaRegion = aregion;
+    }
 
-	public Region getLobbyRegion() {
-		return lobbyRegion;
-	}
+    public Region getLobbyRegion() {
+        return lobbyRegion;
+    }
 
-	public void setLobbyRegion(Region lregion) {
-		this.lobbyRegion = lregion;
-	}
+    public void setLobbyRegion(Region lregion) {
+        this.lobbyRegion = lregion;
+    }
 
-	public Location getLobbySpawn() {
-		return lobbySpawn;
-	}
+    public Location getLobbySpawn() {
+        return lobbySpawn;
+    }
 
-	public void setLobbySpawn(Location lobbySpawn) {
-		this.lobbySpawn = lobbySpawn;
-	}
+    public void setLobbySpawn(Location lobbySpawn) {
+        this.lobbySpawn = lobbySpawn;
+    }
 
-	public List<Location> getPlayerSpawns() {
-		return playerSpawns;
-	}
+    public List<Location> getPlayerSpawns() {
+        return playerSpawns;
+    }
 
-	public void setPlayerSpawns(List<Location> playerSpawns) {
-		this.playerSpawns = playerSpawns;
-	}
+    public void setPlayerSpawns(List<Location> playerSpawns) {
+        this.playerSpawns = playerSpawns;
+    }
 
-	public boolean insideArena(Location loc) {
-		return (arenaRegion == null ? false : arenaRegion.inside(loc) || lobbyRegion == null ? false : lobbyRegion.inside(loc));
-	}
+    public boolean insideArena(Location loc) {
+        return (arenaRegion == null ? false : arenaRegion.inside(loc) || lobbyRegion == null ? false : lobbyRegion.inside(loc));
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Minigame getMinigame() {
-		return minigame;
-	}
+    public Minigame getMinigame() {
+        return minigame;
+    }
 
-	public void setMinigame(Minigame minigame) {
-		this.minigame = minigame;
-	}
+    public void setMinigame(Minigame minigame) {
+        this.minigame = minigame;
+    }
 
-	public List<Round> getRounds() {
-		return rounds;
-	}
+    public List<Round> getRounds() {
+        return rounds;
+    }
 
-	public void setRounds(List<Round> rounds) {
-		this.rounds = rounds;
-	}
+    public void setRounds(List<Round> rounds) {
+        this.rounds = rounds;
+    }
 
-	public Map<String, Object> serialize() {
-		return null;
-	}
+    public Map<String, Object> serialize() {
+        return null;
+    }
 
-	public Arena deserialize(Map<String, Object> serialized) {
-		return null;
-	}
+    public Arena deserialize(Map<String, Object> serialized) {
+        return null;
+    }
 
-	public void timerTick() {
+    public void timerTick() {
 
-		if (currentRound < 0 || currentRound > rounds.size() - 1) {
-			forceKickAll();
+        if (currentRound < 0 || currentRound > rounds.size() - 1) {
+            forceKickAll();
 
-		}
+        }
 
-	}
+    }
 
 }

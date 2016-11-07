@@ -7,43 +7,43 @@ import com.rayzr522.bglib.building.BGameplay;
 
 public class MinigameBuilder {
 
-	private Minigame		minigame;
-	@SuppressWarnings("unused")
-	private MinigameConfig	config;
+    private Minigame       minigame;
+    @SuppressWarnings("unused")
+    private MinigameConfig config;
 
-	public MinigameBuilder(Minigame minigame, MinigameConfig config) {
+    public MinigameBuilder(Minigame minigame, MinigameConfig config) {
 
-		this.minigame = minigame;
-		this.config = config;
+        this.minigame = minigame;
+        this.config = config;
 
-		if (config.XP_BAR_TIMER) {
+        if (config.XP_BAR_TIMER) {
 
-			BGLib.registerToTimer(minigame.getPlugin());
+            BGLib.registerToTimer(minigame.getPlugin());
 
-		}
+        }
 
-	}
+    }
 
-	public MinigameBuilder add(BEvent bEvent) {
+    public MinigameBuilder add(BEvent bEvent) {
 
-		minigame.addBEvent(bEvent);
+        minigame.addBEvent(bEvent);
 
-		return this;
+        return this;
 
-	}
+    }
 
-	public MinigameBuilder add(BGameplay bGameplay) {
+    public MinigameBuilder add(BGameplay bGameplay) {
 
-		minigame.addBGameplay(bGameplay);
+        minigame.addBGameplay(bGameplay);
 
-		return this;
+        return this;
 
-	}
+    }
 
-	public Minigame build() {
+    public Minigame build() {
 
-		return minigame;
+        return minigame;
 
-	}
+    }
 
 }

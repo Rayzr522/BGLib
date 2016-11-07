@@ -16,31 +16,34 @@ import com.rayzr522.bitzapi.utils.CommandUtils;
 @CommandInfo(name = "leave", usage = "/{command} leave", desc = "Leave an arena", pattern = "l(eave)?", perm = "{base}.game.leave")
 public class MGPCGamePlayerLeave implements BitzCommand {
 
-	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
+    public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
 
-		if (!CommandUtils.isPlayer(sender)) { return true; }
+        if (!CommandUtils.isPlayer(sender)) {
+            return true;
+        }
 
-		if (!MinigameUtils.isMGPlugin(plugin)) {
-			plugin.messenger.playerMessage(sender, MGMessages.MGPLUGIN_ONLY_COMMAND.msg);
-			return true;
-		};
+        if (!MinigameUtils.isMGPlugin(plugin)) {
+            plugin.messenger.playerMessage(sender, MGMessages.MGPLUGIN_ONLY_COMMAND.msg);
+            return true;
+        }
+        ;
 
-		Player player = (Player) sender;
+        Player player = (Player) sender;
 
-		MinigamePlugin pl = (MinigamePlugin) plugin;
+        MinigamePlugin pl = (MinigamePlugin) plugin;
 
-		Arena arena = pl.getMinigame().getArena(player);
+        Arena arena = pl.getMinigame().getArena(player);
 
-		if (arena == null) {
-			plugin.messenger.playerMessage(sender, MGMessages.NOT_IN_ARENA.msg);
-			return true;
-		}
+        if (arena == null) {
+            plugin.messenger.playerMessage(sender, MGMessages.NOT_IN_ARENA.msg);
+            return true;
+        }
 
-		arena.leave(player);
-		plugin.messenger.playerMessage(sender, MGMessages.ARENA_LEFT.msg, arena.getName());
+        arena.leave(player);
+        plugin.messenger.playerMessage(sender, MGMessages.ARENA_LEFT.msg, arena.getName());
 
-		return true;
+        return true;
 
-	}
+    }
 
 }

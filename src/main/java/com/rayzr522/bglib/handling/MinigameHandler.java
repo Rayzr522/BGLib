@@ -15,51 +15,51 @@ import com.rayzr522.bitzapi.utils.data.ListUtils;
 
 public class MinigameHandler implements Listener {
 
-	private Minigame						minigame;
-	private MinigameExecutor				executor;
-	private MinigamePlugin					plugin;
-	private List<Class<? extends Event>>	registeredEvents	= ListUtils.<Class<? extends Event>> empty();
+    private Minigame                     minigame;
+    private MinigameExecutor             executor;
+    private MinigamePlugin               plugin;
+    private List<Class<? extends Event>> registeredEvents = ListUtils.<Class<? extends Event>> empty();
 
-	public MinigameHandler(Minigame minigame, MinigamePlugin plugin) {
+    public MinigameHandler(Minigame minigame, MinigamePlugin plugin) {
 
-		this.plugin = plugin;
+        this.plugin = plugin;
 
-		this.minigame = minigame;
-		this.executor = new MinigameExecutor(this);
+        this.minigame = minigame;
+        this.executor = new MinigameExecutor(this);
 
-	}
+    }
 
-	public void event(Event event) {
+    public void event(Event event) {
 
-		if (registeredEvents.contains(event.getClass())) {
+        if (registeredEvents.contains(event.getClass())) {
 
-			for (BEvent eventBlock : minigame.getEventBlocks(event.getClass())) {
+            for (BEvent eventBlock : minigame.getEventBlocks(event.getClass())) {
 
-				if (!eventBlock.isEventClass(event)) {
-					continue;
-				}
+                if (!eventBlock.isEventClass(event)) {
+                    continue;
+                }
 
-				eventBlock.call(event);
+                eventBlock.call(event);
 
-			}
+            }
 
-		}
+        }
 
-	}
+    }
 
-	public List<Class<? extends Event>> getRegisteredEvents() {
-		return registeredEvents;
-	}
+    public List<Class<? extends Event>> getRegisteredEvents() {
+        return registeredEvents;
+    }
 
-	public void registerEvents(List<Class<? extends Event>> eventClasses) {
+    public void registerEvents(List<Class<? extends Event>> eventClasses) {
 
-		eventClasses.stream().filter(clazz -> !registeredEvents.contains(clazz)).forEach((clazz) -> {
+        eventClasses.stream().filter(clazz -> !registeredEvents.contains(clazz)).forEach((clazz) -> {
 
-			registeredEvents.add(clazz);
-			Bukkit.getServer().getPluginManager().registerEvent(clazz, executor, EventPriority.HIGH, executor, plugin);
+            registeredEvents.add(clazz);
+            Bukkit.getServer().getPluginManager().registerEvent(clazz, executor, EventPriority.HIGH, executor, plugin);
 
-		});
+        });
 
-	}
+    }
 
 }

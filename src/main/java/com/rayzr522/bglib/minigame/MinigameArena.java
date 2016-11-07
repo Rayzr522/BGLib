@@ -8,37 +8,37 @@ import com.rayzr522.bglib.arena.player.APlayer;
 
 public class MinigameArena extends Arena {
 
-	public MinigameArena(String name, Minigame minigame) {
-		super(name, minigame);
-	}
+    public MinigameArena(String name, Minigame minigame) {
+        super(name, minigame);
+    }
 
-	public MinigameArena(UUID id, String name, Minigame minigame) {
-		super(id, name, minigame);
-	}
+    public MinigameArena(UUID id, String name, Minigame minigame) {
+        super(id, name, minigame);
+    }
 
-	@Override
-	public void rewardPlayer(APlayer aplayer) {
+    @Override
+    public void rewardPlayer(APlayer aplayer) {
 
-	}
+    }
 
-	@Override
-	public void onPlayerJoin(APlayer aplayer) {
+    @Override
+    public void onPlayerJoin(APlayer aplayer) {
 
-		aplayer.getPlayer().teleport(lobbySpawn);
+        aplayer.getPlayer().teleport(lobbySpawn);
 
-	}
+    }
 
-	@Override
-	public void onPlayerLeave(APlayer aplayer) {
+    @Override
+    public void onPlayerLeave(APlayer aplayer) {
 
-		aplayer.getPlayer().teleport(lobbySpawn.getWorld().getSpawnLocation());
-		rewardPlayer(aplayer);
+        aplayer.getPlayer().teleport(lobbySpawn.getWorld().getSpawnLocation());
+        rewardPlayer(aplayer);
 
-	}
+    }
 
-	@Override
-	public void onPlayerKick(APlayer aplayer) {
+    @Override
+    public void onPlayerKick(APlayer aplayer) {
 
-	}
+    }
 
 }

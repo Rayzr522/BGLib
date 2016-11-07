@@ -10,36 +10,36 @@ import com.rayzr522.bitzapi.utils.Unicode;
 
 public class BGLib extends BitzPlugin {
 
-	public static BGLib			instance;
-	private static GlobalTimer	timer;
+    public static BGLib        instance;
+    private static GlobalTimer timer;
 
-	@Override
-	public void onPluginLoad() {
+    @Override
+    public void onPluginLoad() {
 
-		instance = this;
+        instance = this;
 
-		messenger.setPrefix("&5" + Unicode.TRIANGLE_BLACK_LEFT + Unicode.BLOCK_THIN + " &dBGLib &5" + Unicode.BLOCK_THIN + Unicode.TRIANGLE_BLACK_RIGHT);
+        messenger.setPrefix("&5" + Unicode.TRIANGLE_BLACK_LEFT + Unicode.BLOCK_THIN + " &dBGLib &5" + Unicode.BLOCK_THIN + Unicode.TRIANGLE_BLACK_RIGHT);
 
-		timer = new GlobalTimer();
-		Bukkit.getScheduler().runTaskTimer(this, timer, 0L, 20L);
+        timer = new GlobalTimer();
+        Bukkit.getScheduler().runTaskTimer(this, timer, 0L, 20L);
 
-	}
+    }
 
-	@Override
-	public void onPluginUnload() {
+    @Override
+    public void onPluginUnload() {
 
-	}
+    }
 
-	public void registerCommands() {
+    public void registerCommands() {
 
-		commandHandler.registerCommand(BGCVersion.class);
+        commandHandler.registerCommand(BGCVersion.class);
 
-	}
+    }
 
-	public static void registerToTimer(MinigamePlugin plugin) {
+    public static void registerToTimer(MinigamePlugin plugin) {
 
-		timer.registerPlugin(plugin);
+        timer.registerPlugin(plugin);
 
-	}
+    }
 
 }

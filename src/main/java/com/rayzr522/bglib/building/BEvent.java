@@ -19,49 +19,49 @@ import com.rayzr522.bitzapi.utils.data.MapUtils;
  */
 public abstract class BEvent {
 
-	/**
-	 * Warning: if you set {@code eventClass} to things that are called often
-	 * (e.g. {@link PlayerMoveEvent}{@code .class}) then this can quickly cause
-	 * lag.
-	 * 
-	 */
-	protected List<Class<? extends Event>>	eventClasses;
-	protected HashMap<UUID, Boolean>		enabledPlayers;
+    /**
+     * Warning: if you set {@code eventClass} to things that are called often
+     * (e.g. {@link PlayerMoveEvent}{@code .class}) then this can quickly cause
+     * lag.
+     * 
+     */
+    protected List<Class<? extends Event>> eventClasses;
+    protected HashMap<UUID, Boolean>       enabledPlayers;
 
-	public BEvent() {
+    public BEvent() {
 
-		this.eventClasses = ListUtils.empty();
-		this.enabledPlayers = MapUtils.empty();
+        this.eventClasses = ListUtils.empty();
+        this.enabledPlayers = MapUtils.empty();
 
-	}
+    }
 
-	public abstract void onCreate();
+    public abstract void onCreate();
 
-	public void addEvent(Class<? extends Event> clazz) {
-		eventClasses.add(clazz);
-	}
+    public void addEvent(Class<? extends Event> clazz) {
+        eventClasses.add(clazz);
+    }
 
-	public void removeEvent(Class<? extends Event> clazz) {
-		eventClasses.remove(clazz);
-	}
+    public void removeEvent(Class<? extends Event> clazz) {
+        eventClasses.remove(clazz);
+    }
 
-	/**
-	 * Called in {@link MinigameHandler} when an event of the type specified is
-	 * called
-	 * 
-	 * @param event
-	 *            the event itself
-	 */
-	public abstract void call(Event event);
+    /**
+     * Called in {@link MinigameHandler} when an event of the type specified is
+     * called
+     * 
+     * @param event
+     *            the event itself
+     */
+    public abstract void call(Event event);
 
-	public List<Class<? extends Event>> getEventClasses() {
-		return eventClasses;
-	}
+    public List<Class<? extends Event>> getEventClasses() {
+        return eventClasses;
+    }
 
-	public boolean isEventClass(Event e) {
+    public boolean isEventClass(Event e) {
 
-		return eventClasses.contains(e.getClass());
+        return eventClasses.contains(e.getClass());
 
-	}
+    }
 
 }
